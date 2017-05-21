@@ -28,28 +28,53 @@ public class Playermove : MonoBehaviour
             Anim.SetFloat("rotationy", 0f);
             transform.Translate(Time.deltaTime, 0, 0);
             Position.x += Speed.x;
+            this.GetComponent<Animator>().speed = 1;
         }
+        else if(Input.GetKeyUp("right"))
+        {
+            this.GetComponent<Animator>().speed = 0;
+        }
+
+
         if (Input.GetKey("left"))
         {
             Anim.SetFloat("rotationx", -1f);
             Anim.SetFloat("rotationy", 0f);
             transform.Translate(-Time.deltaTime, 0, 0);
             Position.x -= Speed.x;
+            this.GetComponent<Animator>().speed = 1;
         }
+        else if (Input.GetKeyUp("left"))
+        {
+            this.GetComponent<Animator>().speed = 0;
+        }
+
         if (Input.GetKey("up"))
         {
             Anim.SetFloat("rotationx", 0f);
             Anim.SetFloat("rotationy", 1f);
             transform.Translate(0, Time.deltaTime, 0);
             Position.y += Speed.y;
+            this.GetComponent<Animator>().speed = 1;
         }
+        else if (Input.GetKeyUp("up"))
+        {
+            this.GetComponent<Animator>().speed = 0;
+        }
+
         if (Input.GetKey("down"))
         {
             Anim.SetFloat("rotationx", 0f);
             Anim.SetFloat("rotationy", -1f);
             transform.Translate(0, -Time.deltaTime, 0);
             Position.y -= Speed.y;
+            this.GetComponent<Animator>().speed = 1;
         }
+        else if (Input.GetKeyUp("down"))
+        {
+            this.GetComponent<Animator>().speed = 0;
+        }
+
         transform.position = Position;
     }
 }
