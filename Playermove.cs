@@ -2,53 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Playermove : MonoBehaviour {
+public class Playermove : MonoBehaviour
+{
 
-    public float Speed = 5f;
+    public Vector2 Speed = new Vector2(0.05f, 0.05f);
 
     private Rigidbody2D rigidbody2D;
-    private Animator anim;
+    private Animator Anim;
 
 
     public void Start()
     {
-        anim = GetComponent<Animator>();
+        Anim = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
     // Update is called once per frame
-    public void FixedUpdate()
+
+    void Update()
     {
-        float x = Input.GetAxisRaw("Horizontal");
+        Vector2 Position = transform.position;
 
-        if(x!=0)
+        if (Input.GetKey("right"))
         {
-            rigidbody2D.velocity = new Vector2(x * Speed, rigidbody2D.velocity.y);
-            Vector2 temp = transform.localScale;
-            temp.x = -x;
-            transform.localScale = temp;
-            anim.SetBool("Moveleft", true);
-
+            Anim.SetFloat("rotationx", 1f);
+            Anim.SetFloat("rotationy", 0f);
+            transform.Translate(Time.deltaTime, 0, 0);
+            Position.x += Speed.x;
         }
-        else
+        if (Input.GetKey("left"))
         {
-            rigidbody2D.velocity = new Vector2(0, rigidbody2D.velocity.y);
-            anim.SetBool("Moveleft", false);
+            Anim.SetFloat("rotationx", -1f);
+            Anim.SetFloat("rotationy", 0f);
+            transform.Translate(-Time.deltaTime, 0, 0);
+            Position.x -= Speed.x;
         }
-
-        float y = Input.GetAxisRaw("Vertical");
-        if (y != 0)
+        if (Input.GetKey("up"))
         {
-            anim.SetBool("Movedown",true);
-            anim.SetBool("Moveup", false);
+            Anim.SetFloat("rotationx", 0f);
+            Anim.SetFloat("rotationy", 1f);
+            transform.Translate(0, Time.deltaTime, 0);
+            Position.y += Speed.y;
         }
-        else
+        if (Input.GetKey("down"))
         {
-            anim.SetBool("Moveup", true);
-            anim.SetBool("Movedown", false);
+            Anim.SetFloat("rotationx", 0f);
+            Anim.SetFloat("rotationy", -1f);
+            transform.Translate(0, -Time.deltaTime, 0);
+            Position.y -= Speed.y;
         }
-
-        Vector2 direction = new Vector2(x, y).normalized;
-
-        GetComponent<Rigidbody2D>().velocity = direction * Speed;
+        transform.position = Position;
     }
 }
