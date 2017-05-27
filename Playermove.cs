@@ -6,6 +6,7 @@ public class Playermove : MonoBehaviour
 {
 
     public Vector2 Speed = new Vector2(0.05f, 0.05f);
+    public GameObject Attack;
 
     private Rigidbody2D rigidbody2D;
     private Animator Anim;
@@ -23,6 +24,7 @@ public class Playermove : MonoBehaviour
         if(Input.GetKeyDown("f"))
         {
             Anim.SetTrigger("Attack");
+            Instantiate(Attack, transform.position + new Vector3(1f, 1f, 1f), transform.rotation);
         }
     }
 
